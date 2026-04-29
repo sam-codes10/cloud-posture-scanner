@@ -131,7 +131,7 @@ Access interactive API documentation.
 The scan generates detailed reports for each resource, including:
 - **Check Name & Description**: Standardized CIS benchmark names.
 - **Associated Resource**: The ID of the resource being checked.
-- **Status**: `PASS`, `FAIL`, or `INFO`.
+- **Status**: `PASS`, `FAIL`.
 - **Remediation**: Specific steps to resolve the misconfiguration.
 
 ### Output to S3
