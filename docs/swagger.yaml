@@ -1,0 +1,134 @@
+definitions:
+  models.APIRes:
+    properties:
+      data: {}
+      message:
+        type: string
+      status:
+        type: boolean
+    type: object
+  models.CISCheck:
+    properties:
+      associated_resource:
+        type: string
+      description:
+        type: string
+      name:
+        type: string
+      remediation:
+        type: string
+      status:
+        type: string
+    type: object
+  models.EC2Instance:
+    properties:
+      id:
+        type: string
+      name:
+        type: string
+      private_ip:
+        type: string
+      public_ip:
+        type: string
+      region:
+        type: string
+      state:
+        type: string
+      type:
+        type: string
+    type: object
+  models.S3Bucket:
+    properties:
+      access_policy:
+        type: string
+      encryption_status:
+        type: string
+      id:
+        type: string
+      name:
+        type: string
+      region:
+        type: string
+    type: object
+info:
+  contact: {}
+paths:
+  /api/buckets:
+    get:
+      consumes:
+      - application/json
+      description: Get all S3 buckets
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/models.APIRes'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/models.S3Bucket'
+                  type: array
+              type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.APIRes'
+      summary: Get all S3 buckets
+      tags:
+      - S3
+  /api/cis-results:
+    get:
+      consumes:
+      - application/json
+      description: Run CIS AWS checks
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/models.APIRes'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/models.CISCheck'
+                  type: array
+              type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.APIRes'
+      summary: Run CIS AWS checks
+      tags:
+      - CIS
+  /api/instances:
+    get:
+      consumes:
+      - application/json
+      description: Get all EC2 instances
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/models.APIRes'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/models.EC2Instance'
+                  type: array
+              type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.APIRes'
+      summary: Get all EC2 instances
+      tags:
+      - EC2
+swagger: "2.0"
