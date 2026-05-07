@@ -203,7 +203,7 @@ func RunCisAwsChecks(buckets []models.S3Bucket, instances []models.EC2Instance) 
 
 	// check 5 Security groups should not open to 0.0.0.0/0 for SSH or RDP
 	for _, instance := range instances {
-		if instance.PublicIP == "[IP_ADDRESS]" {
+		if instance.PublicIP != "" {
 			cisChecks = append(cisChecks, models.CISCheck{
 				Name:               "Check 5",
 				Description:        "Security groups should not open to 0.0.0.0/0 for SSH or RDP",
